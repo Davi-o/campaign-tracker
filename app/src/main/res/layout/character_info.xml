@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/characterInfo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="15dp">
+
+    <ImageView
+        android:id="@+id/characterImage"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginRight="10dp"
+        android:src="@android:drawable/ic_menu_report_image"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Character Name" />
+
+        <TextView
+            android:id="@+id/origin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Character Origin" />
+
+        <TextView
+            android:id="@+id/devotion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Character Devotion" />
+
+        <TextView
+            android:id="@+id/archetype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Character Class" />
+
+        <TextView
+            android:id="@+id/resume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Simple Resume" />
+    </LinearLayout>
+</LinearLayout>
