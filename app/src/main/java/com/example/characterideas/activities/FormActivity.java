@@ -78,7 +78,6 @@ public class FormActivity extends AppCompatActivity {
     }
 
     private void editCharacter(Context context) {
-        System.out.println(this.character);
         CharacterService.editSelectedCharacter(context, this.character);
     }
 
