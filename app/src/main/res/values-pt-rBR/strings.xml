@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="submit">Enviar</string>
+    <string name="name_label">Nome</string>
+    <string name="origin_label">Origem</string>
+    <string name="devotion_label">Devoção</string>
+    <string name="archetype_label">Arquétipo</string>
+    <string name="resume_label">Resumo</string>
+    <string name="deleteAttention">Atenção</string>
+    <string name="deleteMessage">Tem certeza que deseja deletar este personagem \? </string>
+    <string name="cancel">Não</string>
+    <string name="justDoIt">Sim, eu tenho certeza disso!</string>
+    <string name="archetype_text_label">Arquétipo</string>
+</resources>
