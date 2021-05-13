@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/characterInfo"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="200dp"
     android:orientation="horizontal"
     android:padding="15dp">
 
@@ -15,8 +15,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:labelFor="@+id/name"
+            android:textColor="@color/purple_500"
+            android:text="@string/name_label" />
 
         <TextView
             android:id="@+id/name"
@@ -26,6 +35,15 @@
             android:text="Character Name" />
 
         <TextView
+            android:id="@+id/originLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:labelFor="@+id/origin"
+            android:textColor="@color/purple_500"
+            android:text="@string/origin_label" />
+
+        <TextView
             android:id="@+id/origin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,11 +51,29 @@
             android:text="Character Origin" />
 
         <TextView
+            android:id="@+id/devotionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:labelFor="@+id/devotion"
+            android:textColor="@color/purple_500"
+            android:text="@string/devotion_label" />
+
+        <TextView
             android:id="@+id/devotion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Character Devotion" />
+
+        <TextView
+            android:id="@+id/archetypeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:labelFor="@+id/archetype"
+            android:textColor="@color/purple_500"
+            android:text="@string/archetype_text_label" />
 
         <TextView
             android:id="@+id/archetype"

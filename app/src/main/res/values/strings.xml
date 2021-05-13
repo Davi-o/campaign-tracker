@@ -15,4 +15,11 @@
     <string name="devotion_label">Devotion</string>
     <string name="archetype_label">Archetype</string>
     <string name="resume_label">Resume</string>
+    <string name="deleteAttention">Attention</string>
+    <string name="deleteMessage">You sure you want to delete this character \? </string>
+    <string name="awesomeCharacter">" this awesome character "</string>
+    <string name="cancel">Cancel</string>
+    <string name="justDoIt">Yes i\'m sure about it</string>
+    <string name="archetype_text_label">Class</string>
+
 </resources>

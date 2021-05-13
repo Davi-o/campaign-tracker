@@ -1,16 +1,23 @@
 package com.example.characterideas.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class Connection extends SQLiteOpenHelper {
+public abstract class Database extends SQLiteOpenHelper {
 
     private static final String NAME = "CharacterIdeas";
     private static final int VERSION = 1;
+    private Context context;
 
-    public Connection(Context context) {
+    public Database(Context context) {
         super(context, NAME, null, VERSION);
+        this.context = context;
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     @Override
