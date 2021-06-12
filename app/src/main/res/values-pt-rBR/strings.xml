@@ -11,4 +11,8 @@
     <string name="cancel">Não</string>
     <string name="justDoIt">Sim, eu tenho certeza disso!</string>
     <string name="archetype_text_label">Arquétipo</string>
+    <string name="campaigns_tab">Campanhas</string>
+    <string name="characters_tab">Personagens</string>
+    <string name="add_character">Novo</string>
+    <string name="update">Atualizar</string>
 </resources>

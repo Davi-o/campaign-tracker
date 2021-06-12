@@ -31,11 +31,18 @@ public class FormActivity extends AppCompatActivity {
         this.setInputFields();
 
         if(this.action.equals("edit")){
+            this.submitButton.setText(R.string.update);
             this.loadFormData();
         }
 
         this.submitButton.setOnClickListener(view -> submitFormData(this));
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        this.submitButton.setText(R.string.add_character);
+        super.onDestroy();
     }
 
     private void loadFormData() {

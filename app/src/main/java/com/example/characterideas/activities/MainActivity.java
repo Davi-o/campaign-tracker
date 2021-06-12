@@ -30,22 +30,26 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+//@todo Adicionar os botoes na listagem de personagens e tambem adicionar a criacao das campanhas
+        binding.characterTab.setOnClickListener(view -> {
+            loadCharactersOnScreen();
+//            binding.characterTab.setText(R.string.add_character);
+            binding.characterTab.setOnClickListener(v -> openCharactersActivity());
+        });
 
-        binding.fab.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, FormActivity.class);
-            intent.putExtra("action", "create");
-            startActivity(intent);
+        binding.campaignTab.setOnClickListener(view -> {
+            finish();
+            startActivity(getIntent());
         });
 
         charactersListView =findViewById(R.id.charactersList);
 
-        loadCharactersOnScreen();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        loadCharactersOnScreen();
+    private void openCharactersActivity() {
+        Intent intent = new Intent(MainActivity.this, FormActivity.class);
+        intent.putExtra("action", "create");
+        startActivity(intent);
     }
 
     private void loadCharactersOnScreen() {

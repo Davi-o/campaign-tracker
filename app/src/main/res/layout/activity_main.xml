@@ -1,21 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <include layout="@layout/content_main" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_main"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+    <ImageButton
+        android:id="@+id/campaign_tab"
+        android:layout_width="362dp"
+        android:layout_height="292dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="415dp"
+        android:src="@drawable/campaigns"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toTopOf="@+id/include"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/character_tab"
+        android:layout_width="367dp"
+        android:layout_height="303dp"
+        android:layout_marginBottom="52dp"
+        android:src="@drawable/characters"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/campaign_tab" />
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/purple_500"
-        app:tint="@color/white"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:width="@android:dimen/thumbnail_width"
+        android:text="@string/campaigns_tab"
+        android:textColor="#FFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/campaign_tab"
+        app:layout_constraintEnd_toEndOf="@+id/campaign_tab"
+        app:layout_constraintStart_toStartOf="@+id/campaign_tab"
+        app:layout_constraintTop_toTopOf="@+id/campaign_tab" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/characters_tab"
+        android:textColor="#FFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/character_tab"
+        app:layout_constraintEnd_toEndOf="@+id/character_tab"
+        app:layout_constraintStart_toStartOf="@+id/character_tab"
+        app:layout_constraintTop_toTopOf="@+id/character_tab" />
+</androidx.constraintlayout.widget.ConstraintLayout>

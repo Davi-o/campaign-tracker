@@ -22,14 +22,25 @@ public abstract class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("create table if not exists campaign " +
+            "(" +
+                "id integer not null primary key autoincrement," +
+                "name varchar(90) not null," +
+                "type varchar(60) not null," +
+                "system varchar(60) not null," +
+                "resume varchar(510) not null" +
+            ")"
+        );
         db.execSQL("create table if not exists character " +
             "(" +
                 "id integer not null primary key autoincrement," +
-                "name integer(90) not null," +
+                "name varchar(90) not null," +
                 "origin integer(60) not null," +
                 "devotion varchar(30) not null," +
                 "archetype varchar(30) not null," +
-                "resume varchar(255) not null" +
+                "resume varchar(255) not null," +
+                "campaign integer not null," +
+                "foreign key (campaign) references campaign(id)" +
             ")"
         );
     }
