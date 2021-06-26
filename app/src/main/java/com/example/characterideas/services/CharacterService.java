@@ -3,6 +3,7 @@ package com.example.characterideas.services;
 import android.content.Context;
 
 import com.example.characterideas.activities.MainActivity;
+import com.example.characterideas.entities.CampaignEntity;
 import com.example.characterideas.entities.CharacterEntity;
 import com.example.characterideas.repositories.CharacterRepository;
 

@@ -3,17 +3,21 @@ package com.example.characterideas.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.characterideas.R;
+import com.example.characterideas.activities.adapters.CampaignAdapter;
 import com.example.characterideas.activities.adapters.CharacterAdapter;
 import com.example.characterideas.databinding.ActivityMainBinding;
+import com.example.characterideas.entities.CampaignEntity;
 import com.example.characterideas.entities.CharacterEntity;
+import com.example.characterideas.services.CampaignService;
 import com.example.characterideas.services.CharacterService;
 
 import java.util.List;
@@ -21,8 +25,13 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private ListView charactersListView;
+    private ListView listView;
+    private Spinner campaignFilters;
     private List<CharacterEntity> characterList;
+    private List<CampaignEntity> campaignList;
+    private final String CHARACTER_VIEW = "view_character";
+    private final String CAMPAIGN_VIEW = "view_campaign";
+    private String actualView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,41 +39,136 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//@todo Adicionar os botoes na listagem de personagens e tambem adicionar a criacao das campanhas
+        binding.fab.setVisibility(View.INVISIBLE);
+        binding.showMenu.setVisibility(View.INVISIBLE);
+
+        binding.showMenu.setOnClickListener(view -> recreate());
+
         binding.characterTab.setOnClickListener(view -> {
+            this.actualView = CHARACTER_VIEW;
             loadCharactersOnScreen();
-//            binding.characterTab.setText(R.string.add_character);
-            binding.characterTab.setOnClickListener(v -> openCharactersActivity());
+            hideMainButtons();
+            setFloatingActionButtonAction(CHARACTER_VIEW);
         });
 
         binding.campaignTab.setOnClickListener(view -> {
-            finish();
-            startActivity(getIntent());
+            this.actualView = CAMPAIGN_VIEW;
+            loadCampaignsOnScreen();
+            hideMainButtons();
+            setFloatingActionButtonAction(CAMPAIGN_VIEW);
         });
 
-        charactersListView =findViewById(R.id.charactersList);
-
+        listView =findViewById(R.id.charactersList);
+        loadFilters();
     }
 
-    private void openCharactersActivity() {
-        Intent intent = new Intent(MainActivity.this, FormActivity.class);
-        intent.putExtra("action", "create");
-        startActivity(intent);
+    private void loadFilters() {
+        //@todo filter characters by campaigns
+        //campaignFilters = findViewById(R.id.campaignSpinner);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (this.actualView != null) {
+            switch (this.actualView) {
+                case CAMPAIGN_VIEW:
+                    loadCampaignsOnScreen();
+                    break;
+                case CHARACTER_VIEW:
+                    loadCharactersOnScreen();
+                    break;
+            }
+        }
+    }
+
+    private void setFloatingActionButtonAction(String which) {
+        switch (which) {
+            case CHARACTER_VIEW:
+                binding.fab.setOnClickListener(view -> {
+                    Intent intent = new Intent(MainActivity.this, CharacterFormActivity.class);
+                    intent.putExtra("action", "create");
+                    startActivity(intent);
+                });
+                break;
+            case CAMPAIGN_VIEW:
+                binding.fab.setOnClickListener(view -> {
+                    Intent intent = new Intent(MainActivity.this, CampaignFormActivity.class);
+                    intent.putExtra("action", "create");
+                    startActivity(intent);
+                });
+                break;
+        }
+    }
+
+    private void hideMainButtons() {
+        binding.showMenu.setVisibility(View.VISIBLE);
+        binding.fab.setVisibility(View.VISIBLE);
+        binding.characterTab.setVisibility(View.INVISIBLE);
+        binding.campaignTab.setVisibility(View.INVISIBLE);
+        findViewById(R.id.tvCampaign).setVisibility(View.INVISIBLE);
+        findViewById(R.id.tvCharacter).setVisibility(View.INVISIBLE);
+    }
+
+    private void loadCampaignsOnScreen() {
+        campaignList = CampaignService.getAllCampaigns(this);
+        CampaignAdapter adapter = new CampaignAdapter(this, campaignList);
+        listView.setAdapter(adapter);
+        configureCampaignList();
+    }
+
+    private void configureCampaignList() {
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            CampaignEntity selectedCampaign = campaignList.get(position);
+
+            Intent intent = new Intent(MainActivity.this, CampaignFormActivity.class);
+
+            intent.putExtra("action", "edit");
+
+            intent.putExtra("campaignId", selectedCampaign.getId());
+            intent.putExtra("campaignName", selectedCampaign.getName());
+            intent.putExtra("campaignType", selectedCampaign.getType());
+            intent.putExtra("campaignSystem", selectedCampaign.getSystem());
+            intent.putExtra("campaignResume", selectedCampaign.getResume());
+
+            startActivity(intent);
+        });
+
+
+        listView.setOnItemLongClickListener((parent, view, position, id) -> {
+            CampaignEntity selectedCampaign = campaignList.get(position);
+            deleteSelectedCampaign(selectedCampaign);
+            return true;
+        });
+    }
+
+    private void deleteSelectedCampaign(CampaignEntity selectedCampaign) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setIcon(android.R.drawable.ic_delete);
+        alert.setTitle(R.string.deleteAttention);
+        alert.setMessage(R.string.deleteCampaignMessage);
+
+        alert.setNeutralButton(R.string.cancel, null);
+        alert.setPositiveButton(R.string.justDoIt, (DialogInterface dialogInterface, int position) -> {
+            CampaignService.deleteCampaign(MainActivity.this, selectedCampaign);
+            loadCampaignsOnScreen();
+        });
+
+        alert.show();
     }
 
     private void loadCharactersOnScreen() {
         characterList = CharacterService.getAllCharacters(this);
         CharacterAdapter adapter = new CharacterAdapter(this, characterList);
-        charactersListView.setAdapter(adapter);
-        configureListView();
+        listView.setAdapter(adapter);
+        configureCharacterList();
     }
 
-    private void configureListView() {
-
-        charactersListView.setOnItemClickListener((parent, view, position, id) -> {
+    private void configureCharacterList() {
+        listView.setOnItemClickListener((parent, view, position, id) -> {
             CharacterEntity selectedCharacter = characterList.get(position);
 
-            Intent intent = new Intent(MainActivity.this, FormActivity.class);
+            Intent intent = new Intent(MainActivity.this, CharacterFormActivity.class);
 
             intent.putExtra("action", "edit");
 
@@ -78,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        charactersListView.setOnItemLongClickListener((parent, view, position, id) -> {
+        listView.setOnItemLongClickListener((parent, view, position, id) -> {
             CharacterEntity selectedCharacter = characterList.get(position);
             deleteSelectedCharacter(selectedCharacter);
             return true;
@@ -89,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setIcon(android.R.drawable.ic_delete);
         alert.setTitle(R.string.deleteAttention);
-        alert.setMessage(R.string.deleteMessage);
+        alert.setMessage(R.string.deleteCharacterMessage);
 
         alert.setNeutralButton(R.string.cancel, null);
         alert.setPositiveButton(R.string.justDoIt, (DialogInterface dialogInterface, int position) -> {

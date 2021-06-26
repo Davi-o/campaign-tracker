@@ -14,7 +14,8 @@
     <string name="archetype_label">Archetype</string>
     <string name="resume_label">Resume</string>
     <string name="deleteAttention">Attention</string>
-    <string name="deleteMessage">You sure you want to delete this character \? </string>
+    <string name="deleteCharacterMessage">You sure you want to delete this character \? </string>
+    <string name="deleteCampaignMessage">You sure you want to delete this campaign \? </string>
     <string name="cancel">Cancel</string>
     <string name="justDoIt">Yes i\'m sure about it</string>
     <string name="archetype_text_label">Class</string>
@@ -24,5 +25,9 @@
     <string name="characters_tab">Characters</string>
     <string name="add_character">New</string>
     <string name="update">update</string>
+    <string name="campaign_name">Campaign Name</string>
+    <string name="type_of_campaign">Type of campaign</string>
+    <string name="system_name">System name</string>
+    <string name="the_history_so_far">The history so far</string>
 
 </resources>

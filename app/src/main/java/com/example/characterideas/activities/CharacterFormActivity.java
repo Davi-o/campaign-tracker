@@ -4,23 +4,32 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.example.characterideas.R;
+import com.example.characterideas.entities.CampaignEntity;
 import com.example.characterideas.entities.CharacterEntity;
+import com.example.characterideas.services.CampaignService;
 import com.example.characterideas.services.CharacterService;
 
-public class FormActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CharacterFormActivity extends AppCompatActivity {
 
     private EditText editTextName;
     private EditText editTextOrigin;
     private EditText editTextDevotion;
     private EditText editTextArchetype;
     private EditText editTextResume;
+    private Spinner spinnerCampaign;
     private Button submitButton;
     private String action;
     private CharacterEntity character;
+    private List<CampaignEntity> campaigns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +62,7 @@ public class FormActivity extends AppCompatActivity {
         editTextDevotion.setText(character.getDevotion());
         editTextArchetype.setText(character.getArchetype());
         editTextResume.setText(character.getResume());
+        editTextResume.setText(character.getResume());
     }
 
     private CharacterEntity getCharacter() {
@@ -62,7 +72,8 @@ public class FormActivity extends AppCompatActivity {
                 getIntent().getStringExtra("characterOrigin"),
                 getIntent().getStringExtra("characterDevotion"),
                 getIntent().getStringExtra("characterArchetype"),
-                getIntent().getStringExtra("characterResume")
+                getIntent().getStringExtra("characterResume"),
+                getIntent().getIntExtra("campaignId",1)
         );
     }
 
@@ -96,7 +107,9 @@ public class FormActivity extends AppCompatActivity {
                     editTextOrigin.getText().toString(),
                     editTextDevotion.getText().toString(),
                     editTextArchetype.getText().toString(),
-                    editTextResume.getText().toString()
+                    editTextResume.getText().toString(),
+                    1
+//                    this.character.getCampaignId()
             );
         } else if (this.action.equals("create"))  {
             this.character = new CharacterEntity(
@@ -105,7 +118,8 @@ public class FormActivity extends AppCompatActivity {
                     editTextOrigin.getText().toString(),
                     editTextDevotion.getText().toString(),
                     editTextArchetype.getText().toString(),
-                    editTextResume.getText().toString()
+                    editTextResume.getText().toString(),
+                    1
             );
         }
     }
@@ -116,9 +130,28 @@ public class FormActivity extends AppCompatActivity {
         this.editTextDevotion = findViewById(R.id.editTextDevotion);
         this.editTextArchetype = findViewById(R.id.editTextArchetype);
         this.editTextResume = findViewById(R.id.editTextResume);
+        this.spinnerCampaign = findViewById(R.id.campaignSpinner);
         this.submitButton = findViewById(R.id.submitButton);
 
+        loadCampaignSpinner();
+
         this.getAction();
+    }
+
+    private void loadCampaignSpinner() {
+       campaigns = CampaignService.getAllCampaigns(this);
+        ArrayList<String> campaignsNames = new ArrayList<>();
+
+        campaigns.forEach(campaign -> campaignsNames.add(campaign.getName()));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                campaignsNames
+        );
+
+//        adapter.setDropDownViewResource(R.layout.character_form);
+        spinnerCampaign.setAdapter(adapter);
     }
 
     private void getAction() {

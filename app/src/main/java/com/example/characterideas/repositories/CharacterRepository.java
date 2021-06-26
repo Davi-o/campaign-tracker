@@ -19,7 +19,7 @@ public class CharacterRepository extends DatabaseConnection implements CRUDRepos
     @Override
     public List<CharacterEntity> readAll() {
         Cursor characters = readableDatabase(getContext()).rawQuery(
-                "select id, name, origin, devotion, archetype, resume from character",
+                "select id, name, origin, devotion, archetype, resume, campaign from character",
                 null
         );
         return formatResponse(characters);
@@ -37,7 +37,8 @@ public class CharacterRepository extends DatabaseConnection implements CRUDRepos
                         characters.getString(2),
                         characters.getString(3),
                         characters.getString(4),
-                        characters.getString(5)
+                        characters.getString(5),
+                        characters.getInt(6)
                 );
                 characterList.add(character);
             } while (characters.moveToNext());
@@ -69,6 +70,7 @@ public class CharacterRepository extends DatabaseConnection implements CRUDRepos
         values.put("devotion", character.getDevotion());
         values.put("archetype", character.getArchetype());
         values.put("resume", character.getResume());
+        values.put("campaign", character.getCampaignId());
 
         return values;
     }

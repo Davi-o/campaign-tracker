@@ -10,8 +10,8 @@
         android:id="@+id/characterImage"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_marginRight="10dp"
-        android:src="@android:drawable/ic_menu_report_image"/>
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/characters"/>
 
     <LinearLayout
         android:layout_width="match_parent"
