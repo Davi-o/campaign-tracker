@@ -39,8 +39,7 @@ public abstract class Database extends SQLiteOpenHelper {
                 "devotion varchar(30) not null," +
                 "archetype varchar(30) not null," +
                 "resume varchar(255) not null," +
-                "campaign integer not null," +
-                "foreign key (campaign) references campaign(id)" +
+                "campaign integer not null" +
             ")"
         );
     }

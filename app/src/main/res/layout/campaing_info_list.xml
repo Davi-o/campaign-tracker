@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/campaignInfo"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="200dp"
+    android:orientation="horizontal"
+    android:padding="15dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/characterImage"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/campaigns"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:labelFor="@+id/name"
+            android:textColor="@color/purple_500"
+            android:text="@string/campaign_name" />
+
+        <TextView
+            android:id="@+id/campaignName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Campaign Name" />
+
+        <TextView
+            android:id="@+id/typeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:labelFor="@+id/origin"
+            android:textColor="@color/purple_500"
+            android:text="@string/type_of_campaign" />
+
+        <TextView
+            android:id="@+id/campaignType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Type" />
+
+        <TextView
+            android:id="@+id/systemLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:labelFor="@+id/devotion"
+            android:textColor="@color/purple_500"
+            android:text="@string/system_name" />
+
+        <TextView
+            android:id="@+id/campaignSystem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="System" />
+
+        <TextView
+            android:id="@+id/resumeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:labelFor="@+id/archetype"
+            android:textColor="@color/purple_500"
+            android:text="@string/resume_label" />
+
+        <TextView
+            android:id="@+id/campaignResume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="italic"
+            android:text="Simple Resume" />
+    </LinearLayout>
+</LinearLayout>
